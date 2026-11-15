@@ -1,0 +1,68 @@
+<Window x:Class="LaserCalc.Desktop.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LaserCalc 2.0 | Kalkulationshistorie"
+        Height="720" Width="1240" MinHeight="560" MinWidth="900"
+        WindowStartupLocation="CenterOwner" Background="{StaticResource NavyBrush}"
+        Loaded="Window_Loaded">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,18">
+            <TextBlock Text="AUFTRÄGE · HISTORIE" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+            <TextBlock Text="Gespeicherte Kalkulationen" Foreground="White" FontSize="26" FontWeight="Bold" Margin="0,5,0,0"/>
+            <TextBlock Text="Alle Werte stammen aus den gespeicherten Kalkulations-Snapshots dieses Rechners." Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,5,0,0"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchBox" Width="420" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center"
+                     ToolTip="Nach Datei, Material, Format oder Zeitbasis suchen" TextChanged="SearchBox_TextChanged"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="CountText" Text="Wird geladen …" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                <Button x:Name="ExportCsvButton" Content="CSV exportieren" Padding="12,7" IsEnabled="False" Click="ExportCsvButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Border Grid.Row="2" Background="{StaticResource PanelBrush}" CornerRadius="10" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="1">
+            <DataGrid x:Name="HistoryGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                      CanUserDeleteRows="False" CanUserReorderColumns="True" CanUserResizeRows="False"
+                      GridLinesVisibility="Horizontal" HeadersVisibility="Column" SelectionMode="Extended" SelectionUnit="FullRow"
+                      Background="{StaticResource PanelBrush}" Foreground="#E8EEF3" RowBackground="#192633"
+                      AlternatingRowBackground="#213242" BorderThickness="0" HorizontalGridLinesBrush="#334656"
+                      VerticalGridLinesBrush="#334656" RowHeaderWidth="0">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#213242"/>
+                        <Setter Property="Foreground" Value="#B9C8D5"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="9,10"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#334656"/>
+                    </Style>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Padding" Value="8,7"/>
+                        <Setter Property="Foreground" Value="#E8EEF3"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="135"/>
+                    <DataGridTextColumn Header="Datei / Teil" Binding="{Binding SourceFile}" Width="2*"/>
+                    <DataGridTextColumn Header="Material" Binding="{Binding Material}" Width="125"/>
+                    <DataGridTextColumn Header="Dicke" Binding="{Binding ThicknessMm, StringFormat={}{0:N2} mm}" Width="85"/>
+                    <DataGridTextColumn Header="Menge" Binding="{Binding Quantity}" Width="70"/>
+                    <DataGridTextColumn Header="Selbstkosten" Binding="{Binding CostPerPart, StringFormat={}{0:N2} €}" Width="110"/>
+                    <DataGridTextColumn Header="Mindestpreis" Binding="{Binding MinimumPricePerPart, StringFormat={}{0:N2} €}" Width="110"/>
+                    <DataGridTextColumn Header="Empfehlung" Binding="{Binding RecommendedPricePerPart, StringFormat={}{0:N2} €}" Width="110"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+            <TextBlock x:Name="DetailText" Text="Eine Zeile auswählen: Details · Zwei Zeilen mit Strg auswählen: Kalkulationen vergleichen." Foreground="{StaticResource MutedBrush}" FontSize="10" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <Button Content="Schließen" Width="110" HorizontalAlignment="Right" Click="CloseButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

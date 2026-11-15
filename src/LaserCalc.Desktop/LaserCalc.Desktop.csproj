@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>LaserCalc.Desktop</RootNamespace>
+    <AssemblyName>LaserCalc</AssemblyName>
+    <Version>0.9.2</Version>
+    <AssemblyVersion>0.9.2.0</AssemblyVersion>
+    <FileVersion>0.9.2.0</FileVersion>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../LaserCalc.Domain/LaserCalc.Domain.csproj" />
+    <ProjectReference Include="../LaserCalc.Application/LaserCalc.Application.csproj" />
+    <ProjectReference Include="../LaserCalc.Infrastructure/LaserCalc.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

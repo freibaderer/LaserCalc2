@@ -1,0 +1,225 @@
+<Window x:Class="LaserCalc.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LaserCalc 2.0 | Mages mechanische Fertigung"
+        Height="940" Width="1560" MinHeight="820" MinWidth="1280"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource NavyBrush}"
+        AllowDrop="True" DragOver="Window_DragOver" Drop="Window_Drop">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}" Padding="20">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top">
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,34">
+                        <Border Width="40" Height="40" CornerRadius="9" Background="{StaticResource AccentBrush}" VerticalAlignment="Center">
+                            <TextBlock Text="M" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="11,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="LASERCALC" Foreground="White" FontSize="17" FontWeight="Bold"/>
+                            <TextBlock Text="VERSION 2.0" Foreground="{StaticResource MutedBrush}" FontSize="10"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock Text="ARBEITSPLATZ" Foreground="{StaticResource MutedBrush}" FontSize="10" FontWeight="Bold" Margin="4,0,0,12"/>
+                    <Border Background="#213D57" CornerRadius="7" Padding="12" Margin="0,0,0,7">
+                        <TextBlock Text="Neue Kalkulation" Foreground="White" FontWeight="SemiBold"/>
+                    </Border>
+                    <Button Content="Teilehistorie öffnen" HorizontalContentAlignment="Left" Background="Transparent"
+                            BorderThickness="0" Padding="12" Margin="0,0,0,7" Click="HistoryButton_Click"/>
+                    <TextBlock Text="STAMMDATEN" Foreground="{StaticResource MutedBrush}" FontSize="10" FontWeight="Bold" Margin="4,26,0,12"/>
+                    <Button Content="Schnittparameter verwalten" HorizontalContentAlignment="Left" Background="Transparent"
+                            BorderThickness="0" Padding="12" Margin="0,0,0,7" Click="CuttingParametersButton_Click"/>
+                    <Button Content="Materialien &amp; Vollkosten" HorizontalContentAlignment="Left" Background="Transparent"
+                            BorderThickness="0" Padding="12" Margin="0,0,0,7" Click="MaterialsButton_Click"/>
+                    <Button Content="Datensicherung erstellen" HorizontalContentAlignment="Left" Background="Transparent"
+                            BorderThickness="0" Padding="12" Margin="0,0,0,7" Click="BackupButton_Click"/>
+                    <Button Content="Datensicherung wiederherstellen" HorizontalContentAlignment="Left" Background="Transparent"
+                            BorderThickness="0" Padding="12" Margin="0,0,0,7" Click="RestoreBackupButton_Click"/>
+                </StackPanel>
+                <Border DockPanel.Dock="Bottom" Background="{StaticResource PanelBrush}" CornerRadius="10" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="MAGES MECHANISCHE FERTIGUNG" Foreground="White" FontSize="10" FontWeight="Bold"/>
+                        <TextBlock Text="Lokaler Arbeitsplatz · Offline" Foreground="{StaticResource MutedBrush}" FontSize="10" Margin="0,5,0,0"/>
+                        <TextBlock Text="TRUMPF L3030 · 4 kW" Foreground="#6FADE0" FontSize="10" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="30,24,30,30">
+                <Grid Margin="0,0,0,22">
+                    <StackPanel>
+                        <TextBlock Text="KALKULATION · EINZELTEIL" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+                        <TextBlock Text="Neue Laserteil-Kalkulation" Foreground="White" FontSize="29" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Text="Kundendatei importieren, Geometrie prüfen und Preis sicher bestimmen." Foreground="{StaticResource MutedBrush}" FontSize="13" Margin="0,6,0,0"/>
+                    </StackPanel>
+                    <Border HorizontalAlignment="Right" Background="{StaticResource PanelBrush}" CornerRadius="8" Padding="13,9" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="8" Height="8" Fill="#39C58A" Margin="0,0,8,0"/>
+                            <TextBlock Text="LOKALER ARBEITSPLATZ" Foreground="#C7D5E0" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.12*"/>
+                        <ColumnDefinition Width="0.88*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,14,0">
+                        <Border Background="{StaticResource PanelBrush}" CornerRadius="12" Padding="20" Margin="0,0,0,14">
+                            <StackPanel>
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock Text="1 · DATEIIMPORT" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+                                    <TextBlock x:Name="ImportStatusText" Text="Noch keine Datei geladen" Foreground="#D2DEE7" FontSize="11" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Border x:Name="DropZone" BorderBrush="#42617B" BorderThickness="1.5" CornerRadius="10" Padding="20" Background="#142231">
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="⇧" Foreground="{StaticResource AccentBrush}" FontSize="34" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="DXF- oder GEO-Datei hier ablegen" Foreground="White" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Kundendatei: DXF  ·  TruTops Classic: GEO" Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,5,0,13"/>
+                                        <Button Content="Datei auswählen" Width="170" Click="ImportButton_Click"/>
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock x:Name="SourceFileText" Text="" Foreground="#AFC0CE" FontSize="11" Margin="0,12,0,0" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="SourceCompareText" Text="Du kannst DXF und GEO gemeinsam auswählen, um beide Quellen direkt abzugleichen." Foreground="#7FAFD5" FontSize="10" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                                <CheckBox x:Name="ManualGeometryCheck" Content="Geometrie / Einheiten anhand Zeichnung geprüft – Abweichung akzeptieren" Foreground="#E6C47A" FontSize="10" Margin="0,8,0,0" Visibility="Collapsed" Checked="ManualGeometryCheck_Changed" Unchecked="ManualGeometryCheck_Changed"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource PanelBrush}" CornerRadius="12" Padding="20">
+                            <StackPanel>
+                                <Grid Margin="0,0,0,8">
+                                    <TextBlock Text="2 · WERKSTÜCKVORSCHAU" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+                                    <TextBlock Text="Maßstab automatisch" Foreground="{StaticResource MutedBrush}" FontSize="10" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Border Background="#0D1720" CornerRadius="8" BorderBrush="#304454" BorderThickness="1" Padding="6" ClipToBounds="True">
+                                    <Canvas x:Name="PreviewCanvas" Width="640" Height="400" Background="#0D1720"/>
+                                </Border>
+                                <TextBlock x:Name="PreviewCaption" Text="Die Geometrie erscheint nach dem Import." Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="2,9,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <Border Background="{StaticResource PanelBrush}" CornerRadius="12" Padding="20" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="3 · GEOMETRIEANALYSE" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+                                <TextBlock x:Name="PartNameText" Text="Noch kein Werkstück" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,7,0,13"/>
+                                <UniformGrid Columns="2">
+                                    <StackPanel Margin="0,0,8,12">
+                                        <TextBlock Text="ABMESSUNGEN" Foreground="{StaticResource MutedBrush}" FontSize="10"/>
+                                        <TextBlock x:Name="DimensionsText" Text="– × – mm" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,0,12">
+                                        <TextBlock Text="SCHNITTLÄNGE" Foreground="{StaticResource MutedBrush}" FontSize="10"/>
+                                        <TextBlock x:Name="CutLengthText" Text="– m" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="NETTOTEILFLÄCHE" Foreground="{StaticResource MutedBrush}" FontSize="10"/>
+                                        <TextBlock x:Name="AreaText" Text="– mm²" Foreground="White" FontSize="16" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="KONTUREN / EINSTICHE*" Foreground="{StaticResource MutedBrush}" FontSize="10"/>
+                                        <TextBlock x:Name="ContoursText" Text="– / –" Foreground="White" FontSize="16" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </UniformGrid>
+                                <TextBlock Text="* Einstichzahl ist zunächst eine Kontur-Schätzung und wird später anhand der TruTops-Prozessdaten verifiziert." Foreground="#8799A8" FontSize="10" TextWrapping="Wrap" Margin="0,11,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource PanelBrush}" CornerRadius="12" Padding="20" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="4 · KALKULATIONSPARAMETER" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,12"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="14"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Material" Foreground="#CBD6DF" FontSize="11"/>
+                                        <ComboBox x:Name="MaterialCombo" DisplayMemberPath="Name" SelectionChanged="MaterialCombo_SelectionChanged"/>
+                                        <TextBlock Text="Materialpreis (€/kg)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="PricePerKgBox" Text="0,90" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Werkstoffdichte (kg/m³)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="DensityBox" Text="7.850" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Blechdicke (mm)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="ThicknessBox" Text="3" TextChanged="ThicknessBox_TextChanged"/>
+                                        <TextBlock Text="Stückzahl" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="QuantityBox" Text="1" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Materialrand je Seite (mm)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="BorderBox" Text="10" TextChanged="CalculationInputs_Changed"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Vorschub (m/min)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="FeedRateBox" Text="12" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Interne Maschinen-Vollkosten (€ / h)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="MachineRateBox" Text="80" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Rüstzeit je Auftrag (min)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="SetupMinutesBox" Text="0" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock Text="Einstichzeit (Sekunden)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="PierceSecondsBox" Text="1" TextChanged="CalculationInputs_Changed"/>
+                                        <TextBlock x:Name="CuttingPresetStatus" Text="Allgemeiner Startwert: 12 m/min · 1 s" Foreground="#7FAFD5" FontSize="9" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Separator Background="#344554" Margin="0,5,0,12"/>
+                                <TextBlock Text="Bestätigte Maschinenzeit je Stück (optional, Minuten). Leer = Schätzung aus Schnittlänge, Vorschub und Einstichen." Foreground="#CBD6DF" FontSize="10" TextWrapping="Wrap"/>
+                                <TextBox x:Name="ActualMachineMinutesBox" Text="" TextChanged="CalculationInputs_Changed" ToolTip="Maschinenzeit aus einer echten Fertigung oder manuell bestätigter Wert"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="14"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Mindestmarge (%)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="MinimumMarginBox" Text="5" TextChanged="CalculationInputs_Changed"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Zielmarge (%)" Foreground="#CBD6DF" FontSize="11"/>
+                                        <TextBox x:Name="TargetMarginBox" Text="20" TextChanged="CalculationInputs_Changed"/>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Materialpreise, Dichten und interne Maschinen-Vollkosten sind editierbar. Margen 5 % / 20 % sind vorläufige Startwerte. Alle Preise netto." Foreground="#8799A8" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                                <Button x:Name="CalculateButton" Content="Kalkulation durchführen" Height="42" Click="CalculateButton_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="ResultsPanel" Background="{StaticResource PanelBrush}" CornerRadius="12" Padding="20" Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="5 · PREISERGEBNIS" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
+                                <TextBlock x:Name="TimeBasisText" Text="Zeitbasis" Foreground="#AFC0CE" FontSize="10" Margin="0,5,0,13"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="#14212D" CornerRadius="8" Padding="11" Margin="0,0,8,0">
+                                        <StackPanel><TextBlock Text="SELBSTKOSTEN*" Foreground="{StaticResource MutedBrush}" FontSize="9"/><TextBlock x:Name="CostResultText" Text="– €" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,7,0,0"/></StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" Background="#14212D" CornerRadius="8" Padding="11" Margin="0,0,8,0">
+                                        <StackPanel><TextBlock Text="MINDESTPREIS" Foreground="{StaticResource MutedBrush}" FontSize="9"/><TextBlock x:Name="MinimumResultText" Text="– €" Foreground="#E6C47A" FontSize="18" FontWeight="Bold" Margin="0,7,0,0"/></StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="2" Background="#14212D" CornerRadius="8" Padding="11">
+                                        <StackPanel><TextBlock Text="EMPFOHLEN" Foreground="{StaticResource MutedBrush}" FontSize="9"/><TextBlock x:Name="RecommendedResultText" Text="– €" Foreground="#69B6F2" FontSize="18" FontWeight="Bold" Margin="0,7,0,0"/></StackPanel>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,12,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <StackPanel><TextBlock Text="Rohteilgewicht" Foreground="{StaticResource MutedBrush}" FontSize="10"/><TextBlock x:Name="BlankWeightText" Text="– kg" Foreground="White" FontSize="13"/></StackPanel>
+                                    <StackPanel Grid.Column="1"><TextBlock Text="Fertigteilgewicht" Foreground="{StaticResource MutedBrush}" FontSize="10"/><TextBlock x:Name="FinishedWeightText" Text="– kg" Foreground="White" FontSize="13"/></StackPanel>
+                                </Grid>
+                                <TextBlock x:Name="MaterialUtilizationText" Text="Materialausnutzung und Verschnitt" Foreground="#C7D5E0" FontSize="10" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                                <TextBlock x:Name="CostBreakdownText" Text="Material + Maschine + Rüstanteil" Foreground="#C7D5E0" FontSize="10" TextWrapping="Wrap" Margin="0,12,0,0"/>
+                                <TextBlock x:Name="OrderTotalsText" Text="Auftrag gesamt" Foreground="White" FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                                <TextBlock x:Name="ResultWarningsText" Text="" Foreground="#E6C47A" FontSize="10" TextWrapping="Wrap" Margin="0,12,0,0"/>
+                                <Grid Margin="0,14,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="10"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                    <Button x:Name="ExportPdfButton" Grid.Column="0" Content="Kalkulationsblatt PDF" Height="40" IsEnabled="False" Click="ExportPdfButton_Click"/>
+                                    <Button x:Name="CreateOfferButton" Grid.Column="2" Content="Kundenangebot erstellen" Height="40" IsEnabled="False" Click="CreateOfferButton_Click"/>
+                                </Grid>
+                                <TextBlock Text="* Selbstkostenmodell: Materialkosten + interne Maschinen-Vollkosten + anteilige Rüstkosten. Preisaufschläge sind separat ausgewiesen." Foreground="#8799A8" FontSize="9" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+                <TextBlock x:Name="StatusText" Text="Bereit. Bitte eine DXF- oder GEO-Datei importieren." Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="2,16,0,0" TextWrapping="Wrap"/>
+                <TextBlock Text="LASERCALC 2.0 · ENTWICKLUNGSVERSION · MAGES MECHANISCHE FERTIGUNG GMBH" Foreground="#607384" FontSize="9" Margin="2,16,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

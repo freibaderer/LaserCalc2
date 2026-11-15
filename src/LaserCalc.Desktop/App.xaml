@@ -1,0 +1,47 @@
+<Application x:Class="LaserCalc.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Color x:Key="Navy">#101923</Color>
+        <Color x:Key="Sidebar">#0B131B</Color>
+        <Color x:Key="Panel">#192633</Color>
+        <Color x:Key="Panel2">#213242</Color>
+        <Color x:Key="Accent">#2586D8</Color>
+        <Color x:Key="Muted">#9BAAB8</Color>
+        <Color x:Key="Border">#334656</Color>
+        <SolidColorBrush x:Key="NavyBrush" Color="{StaticResource Navy}"/>
+        <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource Sidebar}"/>
+        <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource Panel}"/>
+        <SolidColorBrush x:Key="Panel2Brush" Color="{StaticResource Panel2}"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}"/>
+        <SolidColorBrush x:Key="MutedBrush" Color="{StaticResource Muted}"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource Border}"/>
+
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#F3F6F8"/>
+            <Setter Property="Background" Value="#101B25"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="9,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,4,0,10"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#F3F6F8"/>
+            <Setter Property="Background" Value="#101B25"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="0,4,0,10"/>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,90 @@
+name: Build LaserCalc for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install Python for source checks
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Restore solution
+        run: dotnet restore LaserCalc2.sln
+
+      - name: Build Release
+        run: dotnet build LaserCalc2.sln --configuration Release --no-restore
+
+      - name: Run calculation and persistence verification
+        run: dotnet run --project src/LaserCalc.Verification/LaserCalc.Verification.csproj --configuration Release --no-build
+
+      - name: Run source structure checks
+        shell: pwsh
+        run: python tools/check-project-structure.py
+
+      - name: Publish self-contained Windows x64 EXE
+        run: dotnet publish src/LaserCalc.Desktop/LaserCalc.Desktop.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true --output artifacts/LaserCalc2
+
+      - name: Add first-start instructions and checksum
+        shell: pwsh
+        run: |
+          @'
+          LASERCALC 2.0 – WINDOWS X64
+
+          Start:
+            Doppelklick auf LaserCalc.exe
+
+          Installation:
+            Keine Installation von Visual Studio und keine separate .NET-Runtime erforderlich.
+            ZIP in einen lokalen Ordner entpacken, z. B. C:\Programme\LaserCalc2 oder einen eigenen Programmordner.
+            LaserCalc.exe starten.
+
+          Lokale Benutzerdaten:
+            %LocalAppData%\Mages\LaserCalc2
+
+          Wichtig:
+            Vor produktiver Angebotskalkulation die Ergebnisse mit freigegebenen Referenzteilen und
+            tatsächlichen Maschinenzeiten validieren. Nicht unterstützte Geometrie wird gesperrt.
+
+          Datensicherung:
+            In LaserCalc die Funktion "Datensicherung erstellen" verwenden und das ZIP außerhalb
+            des Programmordners sichern.
+          '@ | Set-Content artifacts/LaserCalc2/LESE-MICH.txt -Encoding UTF8
+          $exe = Get-FileHash artifacts/LaserCalc2/LaserCalc.exe -Algorithm SHA256
+          "$($exe.Hash)  LaserCalc.exe" | Set-Content artifacts/LaserCalc2/SHA256SUMS.txt -Encoding ASCII
+
+      - name: Package Windows x64 application
+        shell: pwsh
+        run: Compress-Archive -Path artifacts/LaserCalc2/* -DestinationPath artifacts/LaserCalc2-Windows-x64.zip -Force
+
+      - name: Upload CI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LaserCalc2-Windows-x64
+          path: artifacts/LaserCalc2-Windows-x64.zip
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish versioned GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/LaserCalc2-Windows-x64.zip
+          generate_release_notes: true
