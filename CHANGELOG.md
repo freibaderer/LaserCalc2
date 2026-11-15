@@ -148,3 +148,7 @@
 
 ## 0.9.5
 - System.IO-Namespaces ergänzt und WPF Application.Current voll qualifiziert nach Fehleranalyse des Windows-Cloudbuilds.
+
+## 0.9.6 – Korrektur mehrdeutiger Path-Referenzen
+- System.IO.Path im Desktop-Hauptfenster über eindeutigen Alias referenziert.
+- Dateiendungsvariable explizit als string typisiert.

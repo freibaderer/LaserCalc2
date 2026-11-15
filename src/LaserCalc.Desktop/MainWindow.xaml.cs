@@ -1,4 +1,5 @@
 using System.IO;
+using IOPath = System.IO.Path;
 using System.Globalization;
 using System.Diagnostics;
 using System.Windows;
@@ -104,7 +105,7 @@ public partial class MainWindow : Window
             var importedFiles = 0;
             foreach (var path in paths.Where(File.Exists))
             {
-                var extension = Path.GetExtension(path).ToLowerInvariant();
+                string extension = IOPath.GetExtension(path).ToLowerInvariant();
                 if (extension == ".geo")
                 {
                     if (_truTopsGeoGeometry is not null)
@@ -133,7 +134,7 @@ public partial class MainWindow : Window
                 ? $"DXF: {_customerDxfGeometry.SourceFile}\nGEO: {_truTopsGeoGeometry.SourceFile} (aktive Kalkulationsquelle)"
                 : $"{_geometry.SourceFile}  ·  {_geometry.Format}";
             SourceCompareText.Text = CompareSources();
-            PartNameText.Text = Path.GetFileNameWithoutExtension(_geometry.SourceFile);
+            PartNameText.Text = IOPath.GetFileNameWithoutExtension(_geometry.SourceFile);
             DimensionsText.Text = $"{_geometry.WidthMm:N2} × {_geometry.HeightMm:N2} mm";
             CutLengthText.Text = $"{_geometry.CutLengthMm / 1000.0:N3} m";
             AreaText.Text = _geometry.NetAreaMm2.HasValue ? $"{_geometry.NetAreaMm2.Value:N2} mm²" : "Nicht ermittelt";
@@ -386,7 +387,7 @@ public partial class MainWindow : Window
 
             var executable = Environment.ProcessPath;
             if (!string.IsNullOrWhiteSpace(executable) &&
-                string.Equals(Path.GetFileName(executable), "LaserCalc.exe", StringComparison.OrdinalIgnoreCase))
+                string.Equals(IOPath.GetFileName(executable), "LaserCalc.exe", StringComparison.OrdinalIgnoreCase))
             {
                 Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true });
                 System.Windows.Application.Current.Shutdown();
@@ -534,8 +535,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        var safeName = string.Concat(Path.GetFileNameWithoutExtension(_geometry.SourceFile)
-            .Select(ch => Path.GetInvalidFileNameChars().Contains(ch) ? '_' : ch));
+        var safeName = string.Concat(IOPath.GetFileNameWithoutExtension(_geometry.SourceFile)
+            .Select(ch => IOPath.GetInvalidFileNameChars().Contains(ch) ? '_' : ch));
         var dialog = new SaveFileDialog
         {
             Title = "Kalkulationsblatt als PDF speichern",
