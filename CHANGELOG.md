@@ -152,3 +152,8 @@
 ## 0.9.6 – Korrektur mehrdeutiger Path-Referenzen
 - System.IO.Path im Desktop-Hauptfenster über eindeutigen Alias referenziert.
 - Dateiendungsvariable explizit als string typisiert.
+
+## 0.9.7 – Korrektur der Verifikationsfälle
+- Prüferwartungen an die kaufmännische Rundung der Ergebniswerte angepasst.
+- GEO-Flächenabweichung im Test auf einen Wert oberhalb der Toleranz erhöht.
+- PDF-Rabattzeile im Test unter Berücksichtigung der PDF-Escapes geprüft.

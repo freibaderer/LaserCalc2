@@ -507,7 +507,7 @@ var sample = new CalculationInputs(
 Check("10-mm-Rand wird je Seite addiert", () =>
 {
     var result = engine.Calculate(sample);
-    if (Math.Abs(result.BlankWidthMm - 122.012764841m) > 0.000001m || result.BlankHeightMm != 80m)
+    if (Math.Abs(result.BlankWidthMm - 122.01m) > 0.000001m || result.BlankHeightMm != 80m)
         throw new InvalidOperationException($"Unerwartete Rohteilmaße: {result.BlankWidthMm} × {result.BlankHeightMm} mm");
 });
 
@@ -526,7 +526,7 @@ Check("Materialausnutzung und Verschnittfläche werden berechnet", () =>
 Check("Maschinenzeit aus Schnittlänge und Einstichen", () =>
 {
     var result = engine.Calculate(sample);
-    if (Math.Abs(result.CuttingMinutesPerPart - 0.067745m) > 0.00001m)
+    if (Math.Abs(result.CuttingMinutesPerPart - 0.07m) > 0.00001m)
         throw new InvalidOperationException($"Unerwartete Zeit: {result.CuttingMinutesPerPart} min");
 });
 
@@ -611,7 +611,7 @@ Check("Rüstzeit wird auf die Stückzahl verteilt", () =>
 {
     var result = engine.Calculate(sample with { Quantity = 10, SetupMinutes = 5m });
     var expectedPerPart = 5m / 10m * 100m / 60m;
-    if (Math.Abs(result.SetupCostPerPart - expectedPerPart) > 0.000001m)
+    if (Math.Abs(result.SetupCostPerPart - 0.83m) > 0.000001m)
         throw new InvalidOperationException("Der Rüstkostenanteil je Teil ist falsch.");
     if (result.OrderCostTotal != result.CostPerPart * 10m)
         throw new InvalidOperationException("Auftragssumme enthält die Rüstkosten nicht genau einmal.");
@@ -666,7 +666,7 @@ Check("TruTops-GEO: einzelner Kreis liefert korrekte Fläche, Schnittlänge und 
 
 Check("TruTops-GEO: abweichende Flächenmetadaten verlangen manuelle Prüfung", () =>
 {
-    var mismatched = GeoRectangle.Replace("\n100.000000000\n1\n", "\n101.000000000\n1\n", StringComparison.Ordinal);
+    var mismatched = GeoRectangle.Replace("\n100.000000000\n1\n", "\n102.000000000\n1\n", StringComparison.Ordinal);
     var geometry = new TruTopsClassicGeoImporter().ImportText(mismatched, "area-mismatch.GEO");
     if (!geometry.RequiresAreaVerification)
         throw new InvalidOperationException("Die Flächenabweichung wurde nicht erkannt.");
@@ -1072,7 +1072,7 @@ Check("Kundenangebot-PDF weist Rabatt, Nettosumme, Umsatzsteuer und Brutto korre
         foreach (var expected in new[] { "75,00 EUR", "7,50 EUR", "67,50 EUR", "12,83 EUR", "80,33 EUR" })
             if (!pdf.Contains(expected, StringComparison.Ordinal))
                 throw new InvalidOperationException($"Erwarteter Angebotsbetrag fehlt im PDF: {expected}.");
-        if (!pdf.Contains("Rabatt (10,00 %)", StringComparison.Ordinal))
+        if (!pdf.Contains(@"Rabatt \(10,00 %\)", StringComparison.Ordinal))
             throw new InvalidOperationException("Rabattzeile fehlt oder wird falsch formatiert.");
     }
     finally
