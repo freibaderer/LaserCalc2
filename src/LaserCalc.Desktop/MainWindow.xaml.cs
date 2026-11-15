@@ -1,3 +1,4 @@
+using System.IO;
 using System.Globalization;
 using System.Diagnostics;
 using System.Windows;
@@ -388,7 +389,7 @@ public partial class MainWindow : Window
                 string.Equals(Path.GetFileName(executable), "LaserCalc.exe", StringComparison.OrdinalIgnoreCase))
             {
                 Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true });
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
             }
             else
             {

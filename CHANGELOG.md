@@ -1,8 +1,8 @@
-## 0.9.4 – Korrekturen nach zweitem Windows-Cloudbuild
+## 0.9.5 – Korrekturen nach zweitem Windows-Cloudbuild
 
 - HistoryWindow: fehlender Namespace für ICollectionView ergänzt.
 - Verifikationsfälle für GEO- und DXF-Rechtecke: numerische Literale an double-Geometriedaten angepasst.
-- Versionsnummer auf 0.9.4 angehoben.
+- Versionsnummer auf 0.9.5 angehoben.
 
 ## 0.8.0 – Datensicherung und sichere Ergebnisfreigabe
 - Lokale Datensicherung als ZIP für Einstellungen, Materialstamm, Angebotsprofil, Kunden und Kalkulationshistorie.
@@ -145,3 +145,6 @@
 - GEO-Importer: optionale Header-Abmessungen korrekt nullable modelliert.
 - DXF-Importer: ungenutzte lokale Variable entfernt.
 - Versionsnummer auf 0.9.3 angehoben.
+
+## 0.9.5
+- System.IO-Namespaces ergänzt und WPF Application.Current voll qualifiziert nach Fehleranalyse des Windows-Cloudbuilds.

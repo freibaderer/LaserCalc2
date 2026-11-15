@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>LaserCalc.Desktop</RootNamespace>
     <AssemblyName>LaserCalc</AssemblyName>
-    <Version>0.9.4</Version>
-    <AssemblyVersion>0.9.4.0</AssemblyVersion>
-    <FileVersion>0.9.4.0</FileVersion>
+    <Version>0.9.5</Version>
+    <AssemblyVersion>0.9.5.0</AssemblyVersion>
+    <FileVersion>0.9.5.0</FileVersion>
     <PublishSingleFile>true</PublishSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
