@@ -125,8 +125,8 @@ for path in cs_files:
 
 verification = ROOT / "src/LaserCalc.Verification/Program.cs"
 checks = re.findall(r'^Check\("([^"]+)"', verification.read_text(encoding="utf-8"), re.M)
-if len(checks) != 38:
-    errors.append(f"Erwartet 38 Verifikationsfälle, gefunden: {len(checks)}")
+if len(checks) != 39:
+    errors.append(f"Erwartet 39 Verifikationsfälle, gefunden: {len(checks)}")
 
 customer_files = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix.lower() in {".dxf", ".geo"}]
 if customer_files:

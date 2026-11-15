@@ -139,7 +139,28 @@
                                     <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="14"/><ColumnDefinition/></Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
                                         <TextBlock Text="Material" Foreground="#CBD6DF" FontSize="11"/>
-                                        <ComboBox x:Name="MaterialCombo" DisplayMemberPath="Name" SelectionChanged="MaterialCombo_SelectionChanged"/>
+                                        <ComboBox x:Name="MaterialCombo" DisplayMemberPath="Name" SelectionChanged="MaterialCombo_SelectionChanged"
+                                                  Height="42" FontSize="16" FontWeight="SemiBold" Foreground="#FFFFFF"
+                                                  Background="#243D52" BorderBrush="#6FADE0" BorderThickness="1.5"
+                                                  Padding="10,7" Margin="0,6,0,12">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="ComboBoxItem">
+                                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                                    <Setter Property="Background" Value="#213242"/>
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                    <Setter Property="Padding" Value="10,8"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsHighlighted" Value="True">
+                                                            <Setter Property="Background" Value="#32658B"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="#28577B"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
                                         <TextBlock Text="Materialpreis (€/kg)" Foreground="#CBD6DF" FontSize="11"/>
                                         <TextBox x:Name="PricePerKgBox" Text="0,90" TextChanged="CalculationInputs_Changed"/>
                                         <TextBlock Text="Werkstoffdichte (kg/m³)" Foreground="#CBD6DF" FontSize="11"/>
@@ -160,7 +181,7 @@
                                         <TextBox x:Name="SetupMinutesBox" Text="0" TextChanged="CalculationInputs_Changed"/>
                                         <TextBlock Text="Einstichzeit (Sekunden)" Foreground="#CBD6DF" FontSize="11"/>
                                         <TextBox x:Name="PierceSecondsBox" Text="1" TextChanged="CalculationInputs_Changed"/>
-                                        <TextBlock x:Name="CuttingPresetStatus" Text="Allgemeiner Startwert: 12 m/min · 1 s" Foreground="#7FAFD5" FontSize="9" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                                        <TextBlock x:Name="CuttingPresetStatus" Text="TRUMPF TLF 4000 · große Kontur · PCS" Foreground="#7FAFD5" FontSize="9" TextWrapping="Wrap" Margin="0,0,0,8"/>
                                     </StackPanel>
                                 </Grid>
                                 <Separator Background="#344554" Margin="0,5,0,12"/>

@@ -1109,6 +1109,19 @@ Check("PDF-Kalkulationsblatt hat gültige PDF-Struktur", () =>
     }
 });
 
+Check("TRUMPF TLF 4000 presets use large contour and PCS piercing values", () =>
+{
+    var presets = TrumpfTlf4000ProcessData.CreatePresets();
+    var steel = CuttingParameterResolver.Find(presets, "Stahl", 3m);
+    var stainless = CuttingParameterResolver.Find(presets, "Edelstahl / VA", 2m);
+    var aluminium = CuttingParameterResolver.Find(presets, "Aluminium", 3m);
+    if (presets.Count != 34 ||
+        steel is null || steel.FeedRateMetersPerMinute != 3.9m || steel.PierceSeconds != 0.06m ||
+        stainless is null || stainless.FeedRateMetersPerMinute != 6.7m || stainless.PierceSeconds != 0.06m ||
+        aluminium is null || aluminium.FeedRateMetersPerMinute != 4.9m || aluminium.PierceSeconds != 0.06m)
+        throw new InvalidOperationException("TRUMPF-Referenzwerte oder PCS-Einstichzeiten stimmen nicht.");
+});
+
 Console.WriteLine();
 Console.WriteLine($"Ergebnis: {passed} bestanden, {failed} fehlgeschlagen.");
 return failed == 0 ? 0 : 1;

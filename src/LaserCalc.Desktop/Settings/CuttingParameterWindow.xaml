@@ -9,7 +9,7 @@
         <StackPanel Grid.Row="0" Margin="0,0,0,16">
             <TextBlock Text="MASCHINENSTAMMDATEN" Foreground="{StaticResource MutedBrush}" FontSize="11" FontWeight="Bold"/>
             <TextBlock Text="Schnittparameter nach Werkstoff und Blechdicke" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,5,0,0"/>
-            <TextBlock Text="Hinterlege hier deine tatsächlichen Erfahrungs- oder TruTops-Werte. Der Werkstoffname muss exakt dem Eintrag in der Materialauswahl entsprechen (z. B. Stahl, Edelstahl / VA, Aluminium). Es werden keine unbekannten Schnittgeschwindigkeiten automatisch erfunden." Foreground="{StaticResource MutedBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,0"/>
+            <TextBlock Text="Startwerte aus deiner TRUMPF-Tabellensammlung für TLF 4000: nur große Konturen und normales Einstechen mit PCS. Tabellen 28 (Stahl/O2), 31 (Edelstahl/N2) und 34 (Aluminium/N2). Werte bleiben editierbar; reale Schnittqualität und Maschinenzustand bitte in der Fertigung gegenprüfen." Foreground="{StaticResource MutedBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,0"/>
         </StackPanel>
         <Border Grid.Row="1" Background="{StaticResource PanelBrush}" CornerRadius="10" Padding="12">
             <DataGrid x:Name="ParameterGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"

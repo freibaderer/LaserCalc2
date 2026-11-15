@@ -21,7 +21,7 @@ public sealed class AppSettings
     // Initial configurable defaults only; the business must confirm its pricing policy.
     public decimal MinimumMarginPercent { get; set; } = 5m;
     public decimal TargetMarginPercent { get; set; } = 20m;
-    public List<CuttingParameterPreset> CuttingParameters { get; set; } = new();
+    public List<CuttingParameterPreset> CuttingParameters { get; set; } = TrumpfTlf4000ProcessData.CreatePresets();
     public List<MaterialPreset> Materials { get; set; } = new()
     {
         new() { Name = "Stahl", PricePerKg = 0.90m, DensityKgPerM3 = 7850m, MachineRatePerHour = 80m },
@@ -56,7 +56,16 @@ public sealed class AppSettingsStore
         try
         {
             var loaded = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(SettingsPath), JsonOptions);
-            return loaded is { Materials.Count: > 0 } ? loaded : new AppSettings();
+            if (loaded is not { Materials.Count: > 0 }) return new AppSettings();
+
+            // Upgrade older installations that have no cutting presets yet.
+            // Existing operator-edited presets are never overwritten.
+            if (loaded.CuttingParameters is null || loaded.CuttingParameters.Count == 0)
+            {
+                loaded.CuttingParameters = TrumpfTlf4000ProcessData.CreatePresets();
+                Save(loaded);
+            }
+            return loaded;
         }
         catch (Exception ex) when (ex is IOException or JsonException)
         {

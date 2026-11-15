@@ -163,3 +163,9 @@
 
 ## 0.9.9 – GEO-Flächenprüfungstest präzisiert
 - Der GEO-Test setzt den Datei-Flächenwert gezielt an Header-Zeile 7 statt auf ein möglicherweise nicht passendes Textmuster zu vertrauen.
+
+## 0.9.10 – TRUMPF TLF 4000 Referenzparameter und Materialauswahl
+- 34 Referenzdatensätze aus den bereitgestellten TRUMPF-Tabellen 28, 31 und 34 ergänzt: große Kontur, normales Einstechen mit PCS.
+- Bestandsinstallationen ohne Schnittparameter erhalten die Referenzwerte beim Start automatisch; vorhandene benutzerdefinierte Parameter bleiben erhalten.
+- Materialauswahl in der Hauptmaske mit größerer, kontrastreicher Schrift und besser lesbarer Dropdown-Liste gestaltet.
+- Ein Verifikationstest für repräsentative Stahl-, Edelstahl- und Aluminiumwerte ergänzt.

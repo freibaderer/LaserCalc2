@@ -58,6 +58,7 @@ public partial class MainWindow : Window
         MinimumMarginBox.Text = _settings.MinimumMarginPercent.ToString(German);
         TargetMarginBox.Text = _settings.TargetMarginPercent.ToString(German);
         _isInitializing = false;
+        ApplyCuttingParameterPreset();
     }
 
     private void HistoryButton_Click(object sender, RoutedEventArgs e)
