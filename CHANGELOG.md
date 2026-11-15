@@ -160,3 +160,6 @@
 
 ## 0.9.8 – Buildkorrektur Verifikationsprojekt
 - Rüstkosten-Prüfung verwendet den berechneten Erwartungswert inklusive kaufmännischer Rundung; ungenutzte Variable entfernt.
+
+## 0.9.9 – GEO-Flächenprüfungstest präzisiert
+- Der GEO-Test setzt den Datei-Flächenwert gezielt an Header-Zeile 7 statt auf ein möglicherweise nicht passendes Textmuster zu vertrauen.

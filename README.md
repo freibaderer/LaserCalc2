@@ -1,4 +1,4 @@
-# LaserCalc 2.0 – Entwicklungsstand 0.9.8
+# LaserCalc 2.0 – Entwicklungsstand 0.9.9
 
 Windows-Desktopanwendung für Einzelteil-Kalkulation in der Blech-Lohnfertigung.
 

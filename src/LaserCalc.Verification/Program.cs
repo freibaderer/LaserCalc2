@@ -666,7 +666,9 @@ Check("TruTops-GEO: einzelner Kreis liefert korrekte Fläche, Schnittlänge und 
 
 Check("TruTops-GEO: abweichende Flächenmetadaten verlangen manuelle Prüfung", () =>
 {
-    var mismatched = GeoRectangle.Replace("\n100.000000000\n1\n", "\n102.000000000\n1\n", StringComparison.Ordinal);
+    var geoLines = GeoRectangle.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n');
+    geoLines[6] = "102.000000000";
+    var mismatched = string.Join("\n", geoLines);
     var geometry = new TruTopsClassicGeoImporter().ImportText(mismatched, "area-mismatch.GEO");
     if (!geometry.RequiresAreaVerification)
         throw new InvalidOperationException("Die Flächenabweichung wurde nicht erkannt.");
