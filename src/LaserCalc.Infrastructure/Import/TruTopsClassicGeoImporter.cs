@@ -99,8 +99,10 @@ public sealed class TruTopsClassicGeoImporter
         }
 
         var widthHeight = ParseNumbers(lines.ElementAtOrDefault(5) ?? string.Empty);
-        var widthFromHeader = widthHeight.ElementAtOrDefault(0);
-        var heightFromHeader = widthHeight.ElementAtOrDefault(1);
+        // ElementAtOrDefault returns 0 for missing entries; preserve absence explicitly
+        // so downstream HasValue checks distinguish a missing header from a real zero.
+        double? widthFromHeader = widthHeight.Count > 0 ? widthHeight[0] : null;
+        double? heightFromHeader = widthHeight.Count > 1 ? widthHeight[1] : null;
         var fileArea = ParseDouble(lines.ElementAtOrDefault(6) ?? string.Empty);
         var signedReportedArea = contourAreas.Sum(x => x.ReportedArea * (x.Role == 1 ? -1.0 : 1.0));
         var signedGeometryArea = contourAreas.Sum(x => x.GeometryArea * (x.Role == 1 ? -1.0 : 1.0));

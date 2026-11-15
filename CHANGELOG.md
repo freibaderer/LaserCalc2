@@ -133,3 +133,9 @@
 - Zusätzlicher Regressionstest prüft die vollständige Angebots-PDF-Ausgabe mit Rabatt, Nettosumme, Umsatzsteuer und Bruttosumme anhand eines konkreten Rechenfalls.
 - Dokumentation des Angebots-PDFs präzisiert: interne Selbstkosten und Preisempfehlungen bleiben aus dem Kundenangebot ausgeschlossen.
 - Verifikationsumfang auf 38 Fälle erweitert.
+
+
+## 0.9.3 – Korrekturen nach erstem Windows-Cloudbuild
+- GEO-Importer: optionale Header-Abmessungen korrekt nullable modelliert.
+- DXF-Importer: ungenutzte lokale Variable entfernt.
+- Versionsnummer auf 0.9.3 angehoben.

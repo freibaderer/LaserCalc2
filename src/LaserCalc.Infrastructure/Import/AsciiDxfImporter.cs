@@ -194,7 +194,6 @@ public sealed class AsciiDxfImporter
     private static List<EntityRecord> ReadEntityRecords(List<Pair> pairs, List<string> warnings)
     {
         var start = -1;
-        var end = -1;
         for (var i = 0; i + 1 < pairs.Count; i++)
         {
             if (pairs[i].Code == 0 && pairs[i].Value.Equals("SECTION", StringComparison.OrdinalIgnoreCase) &&
