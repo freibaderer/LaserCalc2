@@ -169,3 +169,7 @@
 - Bestandsinstallationen ohne Schnittparameter erhalten die Referenzwerte beim Start automatisch; vorhandene benutzerdefinierte Parameter bleiben erhalten.
 - Materialauswahl in der Hauptmaske mit größerer, kontrastreicher Schrift und besser lesbarer Dropdown-Liste gestaltet.
 - Ein Verifikationstest für repräsentative Stahl-, Edelstahl- und Aluminiumwerte ergänzt.
+
+## 0.9.11 – Verifikation der TRUMPF-Parameter korrigiert
+- Persistenztest aktualisiert: Er bearbeitet den vorhandenen 3-mm-Stahl-Datensatz statt einen zweiten Datensatz anzulegen.
+- Nach dem Neustart wird gezielt dieser Material-/Dicken-Datensatz geprüft; außerdem wird der Erhalt aller 34 Referenzdatensätze kontrolliert.

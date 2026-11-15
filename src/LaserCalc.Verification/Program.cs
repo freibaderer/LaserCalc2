@@ -950,18 +950,19 @@ Check("Materialstamm, Preise und Werkstoff-Dicken-Parameter bleiben nach Neustar
         steel.PricePerKg = 0.95m;
         steel.DensityKgPerM3 = 7850m;
         steel.MachineRatePerHour = 82m;
-        settings.CuttingParameters.Add(new CuttingParameterPreset
-        {
-            MaterialName = "Stahl", ThicknessMm = 3m,
-            FeedRateMetersPerMinute = 8.5m, PierceSeconds = 0.8m
-        });
+        var steelThreeMillimetres = settings.CuttingParameters.Single(x =>
+            x.MaterialName == "Stahl" && x.ThicknessMm == 3m);
+        steelThreeMillimetres.FeedRateMetersPerMinute = 8.5m;
+        steelThreeMillimetres.PierceSeconds = 0.8m;
         firstStore.Save(settings);
 
         var reloaded = new AppSettingsStore(directory).Load();
         var savedSteel = reloaded.Materials.Single(x => x.Name == "Stahl");
-        var savedCutting = reloaded.CuttingParameters.Single();
+        var savedCutting = reloaded.CuttingParameters.Single(x =>
+            x.MaterialName == "Stahl" && x.ThicknessMm == 3m);
         if (savedSteel.PricePerKg != 0.95m || savedSteel.MachineRatePerHour != 82m ||
-            savedCutting.ThicknessMm != 3m || savedCutting.FeedRateMetersPerMinute != 8.5m)
+            savedCutting.ThicknessMm != 3m || savedCutting.FeedRateMetersPerMinute != 8.5m ||
+            reloaded.CuttingParameters.Count != 34)
             throw new InvalidOperationException("Material- oder Schnittparameter wurden nicht dauerhaft gespeichert.");
     }
     finally
