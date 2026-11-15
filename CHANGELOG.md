@@ -1,3 +1,9 @@
+## 0.9.4 – Korrekturen nach zweitem Windows-Cloudbuild
+
+- HistoryWindow: fehlender Namespace für ICollectionView ergänzt.
+- Verifikationsfälle für GEO- und DXF-Rechtecke: numerische Literale an double-Geometriedaten angepasst.
+- Versionsnummer auf 0.9.4 angehoben.
+
 ## 0.8.0 – Datensicherung und sichere Ergebnisfreigabe
 - Lokale Datensicherung als ZIP für Einstellungen, Materialstamm, Angebotsprofil, Kunden und Kalkulationshistorie.
 - Wiederherstellung prüft Manifest, Dateiliste, Dateigrößen, erlaubte Dateinamen und typisierte JSON-Strukturen; Pfadmanipulationen und unbekannte Dateien werden abgewiesen.

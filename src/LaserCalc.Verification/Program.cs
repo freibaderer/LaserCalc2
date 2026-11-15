@@ -647,7 +647,7 @@ Check("TruTops-GEO: geschlossene Rechteckkontur wird erkannt", () =>
     var geometry = new TruTopsClassicGeoImporter().ImportText(GeoRectangle, "fixture.GEO");
     if (!geometry.IsSafeForPreliminaryCalculation || geometry.ContourCount != 1 || geometry.OpenContourCount != 0)
         throw new InvalidOperationException("GEO-Rechteck wurde nicht als geschlossene Kontur erkannt.");
-    if (Math.Abs(geometry.CutLengthMm - 40m) > 0.000001 || Math.Abs((geometry.NetAreaMm2 ?? 0) - 100m) > 0.000001)
+    if (Math.Abs(geometry.CutLengthMm - 40.0) > 0.000001 || Math.Abs((geometry.NetAreaMm2 ?? 0.0) - 100.0) > 0.000001)
         throw new InvalidOperationException($"Falsche GEO-Werte: {geometry.CutLengthMm} mm / {geometry.NetAreaMm2} mm².");
 });
 
@@ -679,7 +679,7 @@ Check("DXF-R12: geschlossene Rechteckkontur wird nicht als Verzweigung markiert"
     var geometry = new AsciiDxfImporter().ImportText(DxfR12Rectangle, "fixture-r12.dxf");
     if (!geometry.IsSafeForPreliminaryCalculation || geometry.ContourCount != 1 || geometry.OpenContourCount != 0)
         throw new InvalidOperationException("DXF-Rechteck ist nicht kalkulationsfähig oder wurde fälschlich als verzweigt erkannt.");
-    if (Math.Abs(geometry.CutLengthMm - 40m) > 0.000001 || Math.Abs((geometry.NetAreaMm2 ?? 0) - 100m) > 0.000001)
+    if (Math.Abs(geometry.CutLengthMm - 40.0) > 0.000001 || Math.Abs((geometry.NetAreaMm2 ?? 0.0) - 100.0) > 0.000001)
         throw new InvalidOperationException($"Falsche DXF-Werte: {geometry.CutLengthMm} mm / {geometry.NetAreaMm2} mm².");
 });
 
