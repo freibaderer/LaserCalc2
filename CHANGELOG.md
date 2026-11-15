@@ -157,3 +157,6 @@
 - Prüferwartungen an die kaufmännische Rundung der Ergebniswerte angepasst.
 - GEO-Flächenabweichung im Test auf einen Wert oberhalb der Toleranz erhöht.
 - PDF-Rabattzeile im Test unter Berücksichtigung der PDF-Escapes geprüft.
+
+## 0.9.8 – Buildkorrektur Verifikationsprojekt
+- Rüstkosten-Prüfung verwendet den berechneten Erwartungswert inklusive kaufmännischer Rundung; ungenutzte Variable entfernt.

@@ -611,7 +611,7 @@ Check("Rüstzeit wird auf die Stückzahl verteilt", () =>
 {
     var result = engine.Calculate(sample with { Quantity = 10, SetupMinutes = 5m });
     var expectedPerPart = 5m / 10m * 100m / 60m;
-    if (Math.Abs(result.SetupCostPerPart - 0.83m) > 0.000001m)
+    if (Math.Abs(result.SetupCostPerPart - decimal.Round(expectedPerPart, 2, MidpointRounding.AwayFromZero)) > 0.000001m)
         throw new InvalidOperationException("Der Rüstkostenanteil je Teil ist falsch.");
     if (result.OrderCostTotal != result.CostPerPart * 10m)
         throw new InvalidOperationException("Auftragssumme enthält die Rüstkosten nicht genau einmal.");
